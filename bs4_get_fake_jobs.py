@@ -32,7 +32,7 @@ for job_element in python_job_elements:
     print(company_element.text.strip())
     print(location_element.text.strip())
 
-    # Now, we need to access the link to apply 
+    # Now, we need to access the link to apply
     links = job_element.find_all("a")
     # And filter only the links that contain the text "Apply"
     links_apply = [link for link in links if link.text == 'Apply']
