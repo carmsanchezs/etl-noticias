@@ -45,8 +45,18 @@ try:
     df = pd.DataFrame(data)
     df.set_index('position', inplace=True)
     print(df.tail())
-    
-    df.to_csv('data_100GreatestMovies.csv')
+
+    # put the data into a csv file
+    df.to_csv(r'data_files/data_100GreatestMovies.csv')
+
+    # put the data into a json file
+    df.to_json(r'data_files/data_100GreatestMovies.json',
+               orient='split',
+               force_ascii=False
+               )
+
+    # put the data into a parquet file
+    df.to_parquet(r'data_files/data_100GreatestMovies.parquet')
 
 except Exception as exc:
     print(f"There was a problem open the page: {URL}, the problem was: {exc}")
