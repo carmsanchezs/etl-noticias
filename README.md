@@ -1,4 +1,4 @@
-# etl-noticias
+# ETL-noticias
 En este repositorios podremos ver como se extrae la información de un sitio web con python usando BeautifulSoup
 
 ## Descripción
@@ -7,7 +7,9 @@ Este repositorio es de la primer asignación de la capacitación en InTechMon co
 
 **bs4_get_fake_jobs.py**: Este script, basado en el tutorial de Real Python disponible aquí, muestra cómo realizar web scraping para obtener datos de [fake python jobs](https://realpython.github.io/fake-jobs/)
 
-**bs4_get_100GreatestMovies.py**: Este script lleva a cabo web scraping en la página de Empire para obtener las [100 mejores películas según Empire](https://www.empireonline.com/movies/features/best-movies-2/). La URL utilizada es esta. Los datos extraídos se almacenan en un archivo CSV llamado "data_100GreatestMovies.csv".
+**bs4_get_100GreatestMovies.py**: Este script lleva a cabo web scraping en la página de Empire para obtener las [100 mejores películas según Empire](https://www.empireonline.com/movies/features/best-movies-2/). La URL utilizada es esta. Los datos extraídos se almacenan en un archivo [csv](data_files/data_100GreatestMovies.csv), [json](data_files/data_100GreatestMovies.json) and [parquet](data_files/data_100GreatestMovies.parquet)
+
+**greatest_movies_to_mysql.py**: Este script toma el archivo [csv](data_files/data_100GreatestMovies.csv) y lo transfiere a una **Base de Datos** dentro de un contenedor que tiene MySQL.
 
 ## Uso
 Para utilizar estos scripts:
@@ -32,7 +34,26 @@ python bs4_get_100GreatestMovies.py
 ```
 Esto aplicará el scraping en [100 mejores películas según Empire](https://www.empireonline.com/movies/features/best-movies-2/)
 
-##Contribución
+3. Para transferir la información del archivo [csv](data_files/data_100GreatestMovies.csv) dentro de la base de datos, asegurate de primero crear el contenedor. 
+
+- [Descarga docker en el sitio oficial] (https://www.docker.com/get-started)
+
+- Crea el contenedor 
+
+```bash
+docker run --name <nombre_del_contenedor> -d \
+    -p 3306:3306 \
+    -e MYSQL_ROOT_PASSWORD=<tu_super_password> \
+    -v mysql:/var/lib/mysql \
+    mysql
+```
+- ejecuta el script
+```bash
+    python greatest_movies_to_mysq.py
+```
+que pasará la información a la tabla llamada **movies**
+
+## Contribución
 ¡Las contribuciones son bienvenidas! Si deseas mejorar estos scripts, por favor, siéntete libre de hacer un fork del repositorio, realizar tus cambios y enviar un pull request.
 
 ## Créditos
